@@ -1,14 +1,16 @@
 import React from 'react'
-import { Text, Image, TouchableOpacity } from 'react-native'
+import { Text, Image, TouchableOpacity, View } from 'react-native'
 import { icons } from "../../constants/icons.js"
 
 import styles from './songlist.style'
 
-const LocationButton = ({location}) => {
+const LocationButton = ({location, handlePress, listState}) => {
   return (
-    <TouchableOpacity style={styles.locationButton}>
-        <Text style={styles.locationText}>{location}</Text>
-    </TouchableOpacity>
+    <View style={listState === location ? styles.locationButtonWrapper : styles.inactiveLocationButtonWrapper}>
+        <TouchableOpacity style={styles.locationButton} onPress={handlePress}>
+            <Text style={listState === location ? styles.activeLocationText : styles.locationText}>{location}</Text>
+        </TouchableOpacity>
+    </View>
   )
 }
 

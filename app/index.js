@@ -5,6 +5,7 @@ import { HamburgerMenu, CementMixxTitle, SearchButton, TripleDotButton, Location
 
 import { registerRootComponent } from 'expo';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react';
 
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
@@ -13,6 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const HomePage = () => {
+  const [listState, setListState] = useState("Suggested");
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topBar}>
@@ -24,15 +26,23 @@ const HomePage = () => {
       <View style={styles.locationSelectBar}>
         <LocationButton
           location={"Suggested"}
+          listState={listState}
+          handlePress={() => setListState("Suggested")}
         />
         <LocationButton
           location={"Songs"}
+          listState={listState}
+          handlePress={() => setListState("Songs")}
         />
         <LocationButton
           location={"Playlists"}
+          listState={listState}
+          handlePress={() => setListState("Playlists")}
         />
         <LocationButton
           location={"Folders"}
+          listState={listState}
+          handlePress={() => setListState("Folders")}
         />
       </View>
       <SongSection />
