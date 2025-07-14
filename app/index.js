@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { HamburgerMenu, CementMixxTitle, SearchButton, TripleDotButton, LocationButton, SongSection } from '../components';
 
@@ -17,35 +17,39 @@ const HomePage = () => {
   const [listState, setListState] = useState("Suggested");
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.topBar}>
-        <HamburgerMenu />
-        <CementMixxTitle />
-        <SearchButton />
-        <TripleDotButton />
-      </View>
-      <View style={styles.locationSelectBar}>
-        <LocationButton
-          location={"Suggested"}
+      <ScrollView>
+        <View style={styles.topBar}>
+          <HamburgerMenu />
+          <CementMixxTitle />
+          <SearchButton />
+          <TripleDotButton />
+        </View>
+        <View style={styles.locationSelectBar}>
+          <LocationButton
+            location={"Suggested"}
+            listState={listState}
+            handlePress={() => setListState("Suggested")}
+          />
+          <LocationButton
+            location={"Songs"}
+            listState={listState}
+            handlePress={() => setListState("Songs")}
+          />
+          <LocationButton
+            location={"Playlists"}
+            listState={listState}
+            handlePress={() => setListState("Playlists")}
+          />
+          <LocationButton
+            location={"Folders"}
+            listState={listState}
+            handlePress={() => setListState("Folders")}
+          />
+        </View>
+        <SongSection
           listState={listState}
-          handlePress={() => setListState("Suggested")}
         />
-        <LocationButton
-          location={"Songs"}
-          listState={listState}
-          handlePress={() => setListState("Songs")}
-        />
-        <LocationButton
-          location={"Playlists"}
-          listState={listState}
-          handlePress={() => setListState("Playlists")}
-        />
-        <LocationButton
-          location={"Folders"}
-          listState={listState}
-          handlePress={() => setListState("Folders")}
-        />
-      </View>
-      <SongSection />
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -53,6 +57,7 @@ const HomePage = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#1E90FF',
+    flex: 1
   },
   topBar: {
     flexDirection: 'row',
