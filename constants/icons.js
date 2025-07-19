@@ -4,6 +4,7 @@ import tripledot from "../assets/icons/tripledot.png";
 import tmpcover from "../assets/icons/tmpcover.jpg";
 import arrowdown from "../assets/icons/arrowdown.png";
 import arrowup from "../assets/icons/arrowup.png";
+import plus from "../assets/icons/plus.png";
 
 
 
@@ -13,5 +14,6 @@ export default {
     tripledot,
     tmpcover,
     arrowup,
-    arrowdown
+    arrowdown,
+    plus
 }

@@ -156,10 +156,38 @@ const styles = StyleSheet.create({
     songsListTripleDot: {
         height: 40,
         width: 40,
-        marginRight: 30
+        marginRight: 5
     },
     songsListCardInfo: {
         width: '70%'
+    },
+    plusButtonIcon: {
+        height: 40,
+        width: 40,
+        marginRight: 20,
+    },
+    playlistsHeader: {
+        flexDirection: "row",
+        alignItems: 'center'
+    },
+    playlistCoverArtContainer: {
+        width: 80,
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        margin: 5
+    },
+    playlistCoverArtMember: {
+        width: 40,
+        height: 40
+    },
+    playlistCoverArtMemberSolo: {
+        width: 80,
+        height: 80
+    },
+    playlistCardWrapper: {
+        flexDirection: "row",
+        width: '92%',
+        alignItems: 'center'
     }
 });
 

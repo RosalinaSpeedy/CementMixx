@@ -50,11 +50,52 @@ const SongsListSongEntryCard = ({ coverArtPath, songTitle, artist, runtime }) =>
     )
 }
 
+const PlaylistEntryCard = ({ songList, title }) => {
+    const createCover = () => {
+        let coverart = [];
+        if (songList.length >= 4) {
+            for (let i = 0; i < 4; i++) {
+                coverart.push(<Image source={songList[i].coverArtPath} style={styles.playlistCoverArtMember} key={i}/>);
+            }
+        } else {
+            coverart.push(<Image source={songList[0].coverArtPath} style={styles.playlistCoverArtMemberSolo} key={0}/>);
+        }
+        return (
+            <View style={styles.playlistCoverArtContainer}>
+                {coverart}
+            </View>
+        );
+    }
+    return (
+        <TouchableOpacity style={styles.playlistCardWrapper}>
+            <View>
+                {createCover()}
+            </View>
+            <View style={styles.songsListCardInfo}>
+                <Text style={styles.songsListCardSongTitle}>{title}</Text>
+                <Text style={styles.artistRuntimeText}>{songList.length} {songList.length > 1 ? "Songs" : "Song"}</Text>
+            </View>
+            <TouchableOpacity>
+                <Image
+                    style={styles.songsListTripleDot}
+                    source={icons.tripledot}
+                />
+            </TouchableOpacity>
+        </TouchableOpacity>
+    )
+}
+
 const tmpSongs = [
     { coverArtPath: icons.tmpcover, songTitle: "title 1", artist: "artist 1", runtime: "2:52" },
     { coverArtPath: icons.tmpcover, songTitle: "title 2", artist: "artist 2", runtime: "2:52" },
     { coverArtPath: icons.tmpcover, songTitle: "title 3", artist: "artist 3", runtime: "2:52" },
     { coverArtPath: icons.tmpcover, songTitle: "title 4", artist: "artist 4", runtime: "2:52" },
+]
+const tmpPlaylists = [
+    {songList: tmpSongs, title: "test playlist 1"},
+    {songList: tmpSongs, title: "test playlist 2"},
+    {songList: tmpSongs, title: "test playlist 3"},
+    {songList: [tmpSongs[0]], title: "test playlist 4"},
 ]
 
 const SongSection = ({ listState }) => {
@@ -138,8 +179,8 @@ const SongSection = ({ listState }) => {
                         <Text style={styles.songsNumberText}>1022 Songs</Text>
                         <TouchableOpacity style={styles.titleOrderButton} onPress={() => setSongListTitleOrder(!songListTitleOrder)}>
                             <Text style={styles.titleOrderText}>Title</Text>
-                            <Image 
-                                source={songListTitleOrder ? icons.arrowdown : icons.arrowup} 
+                            <Image
+                                source={songListTitleOrder ? icons.arrowdown : icons.arrowup}
                                 style={styles.titleOrderArrow}
                             />
                         </TouchableOpacity>
@@ -162,7 +203,38 @@ const SongSection = ({ listState }) => {
                 </View>
             )
         case "Playlists":
-            break;
+            return (
+                <View style={styles.playlistsWrapper}>
+                    <View style={styles.playlistsHeader}>
+                        <Text style={styles.songsNumberText}>PLAYLISTS (25)</Text>
+                        <TouchableOpacity style={styles.plusButton}>
+                            <Image
+                                source={icons.plus}
+                                style={styles.plusButtonIcon}
+                            />
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Image
+                                style={styles.songsListTripleDot}
+                                source={icons.tripledot}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View><FlatList
+                        style={styles.mainSongslist}
+                        data={tmpPlaylists}
+                        renderItem={({ item }) => <PlaylistEntryCard
+                            title={item.title}
+                            songList={item.songList}
+                        />}
+                        ListEmptyComponent={() => (
+                            <View><Text>No songs to display</Text></View>
+                        )}
+                        ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+                        horizontal={false}
+                    /></View>
+                </View>
+            )
         case "Folders":
             break;
     }
