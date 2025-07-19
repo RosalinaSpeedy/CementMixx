@@ -104,6 +104,62 @@ const styles = StyleSheet.create({
         width: 40,
         marginLeft: 39,
         marginRight: 30
+    },
+    songsWrapper: {
+        flexDirection: 'column' 
+    },
+    songsOrderWrapper: {
+        flexDirection: "row",
+        marginBottom: 15,
+        marginTop: 10,
+        alignItems: 'center'
+    },
+    songsNumberText: {
+        color: '#0000B0',
+        fontSize: 15,
+        flex: 1,
+        marginLeft: 5
+    },
+    titleOrderButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginRight: 5
+    },
+    titleOrderText: {
+        color: '#0000B0',
+        fontSize: 14,
+    },
+    titleOrderArrow: {
+        height: 25,
+        width: 25,
+        marginLeft: 8,
+    },
+    songsListCardWrapper: {
+        flexDirection: "row",
+        width: '100%',
+        alignItems: 'center'
+    },
+    songsListCoverArt: {
+        width: 60,
+        height: 60,
+        borderRadius: 10,
+        margin: 5
+    },
+    songsListCardSongTitle: {
+        color: 'white',
+        fontSize: 17,
+    },
+    artistRuntimeText: {
+        color: '#0000B0',
+        fontSize: 15,
+    },
+    songsListTripleDot: {
+        height: 40,
+        width: 40,
+        marginRight: 30
+    },
+    songsListCardInfo: {
+        width: '70%'
     }
 });
 

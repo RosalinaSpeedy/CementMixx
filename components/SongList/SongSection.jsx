@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, Image, TouchableOpacity, View, FlatList } from 'react-native'
 import { icons } from "../../constants"
 
@@ -17,7 +17,7 @@ const SongEntryCard = ({ coverArtPath, songTitle, artist }) => {
 const LastAddedEntryCard = ({ coverArtPath, songTitle, artist, dateAdded }) => {
     return (
         <TouchableOpacity style={styles.lastAddedSongWrapper}>
-            <Image source={coverArtPath} style={styles.lastAddedCoverArt}/>
+            <Image source={coverArtPath} style={styles.lastAddedCoverArt} />
             <View style={styles.lastAddedInfo}>
                 <Text style={styles.cardSongTitle}>{songTitle}</Text>
                 <Text>10 days ago - {artist}</Text>
@@ -32,14 +32,33 @@ const LastAddedEntryCard = ({ coverArtPath, songTitle, artist, dateAdded }) => {
     )
 }
 
+const SongsListSongEntryCard = ({ coverArtPath, songTitle, artist, runtime }) => {
+    return (
+        <TouchableOpacity style={styles.songsListCardWrapper}>
+            <Image source={coverArtPath} style={styles.songsListCoverArt} />
+            <View style={styles.songsListCardInfo}>
+                <Text style={styles.songsListCardSongTitle}>{songTitle}</Text>
+                <Text style={styles.artistRuntimeText}>{artist} - {runtime}</Text>
+            </View>
+            <TouchableOpacity>
+                <Image
+                    style={styles.songsListTripleDot}
+                    source={icons.tripledot}
+                />
+            </TouchableOpacity>
+        </TouchableOpacity>
+    )
+}
+
 const tmpSongs = [
-    { coverArtPath: icons.tmpcover, songTitle: "title 1", artist: "artist 1" },
-    { coverArtPath: icons.tmpcover, songTitle: "title 2", artist: "artist 2" },
-    { coverArtPath: icons.tmpcover, songTitle: "title 3", artist: "artist 3" },
-    { coverArtPath: icons.tmpcover, songTitle: "title 4", artist: "artist 4" },
+    { coverArtPath: icons.tmpcover, songTitle: "title 1", artist: "artist 1", runtime: "2:52" },
+    { coverArtPath: icons.tmpcover, songTitle: "title 2", artist: "artist 2", runtime: "2:52" },
+    { coverArtPath: icons.tmpcover, songTitle: "title 3", artist: "artist 3", runtime: "2:52" },
+    { coverArtPath: icons.tmpcover, songTitle: "title 4", artist: "artist 4", runtime: "2:52" },
 ]
 
 const SongSection = ({ listState }) => {
+    const [songListTitleOrder, setSongListTitleOrder] = useState(true);
     switch (listState) {
         case "Suggested":
             return (
@@ -113,7 +132,35 @@ const SongSection = ({ listState }) => {
                 </View>
             )
         case "Songs":
-            break;
+            return (
+                <View style={styles.songsWrapper}>
+                    <View style={styles.songsOrderWrapper}>
+                        <Text style={styles.songsNumberText}>1022 Songs</Text>
+                        <TouchableOpacity style={styles.titleOrderButton} onPress={() => setSongListTitleOrder(!songListTitleOrder)}>
+                            <Text style={styles.titleOrderText}>Title</Text>
+                            <Image 
+                                source={songListTitleOrder ? icons.arrowdown : icons.arrowup} 
+                                style={styles.titleOrderArrow}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <View><FlatList
+                        style={styles.mainSongslist}
+                        data={tmpSongs}
+                        renderItem={({ item }) => <SongsListSongEntryCard
+                            coverArtPath={item.coverArtPath}
+                            songTitle={item.songTitle}
+                            artist={item.artist}
+                            runtime={item.runtime}
+                        />}
+                        ListEmptyComponent={() => (
+                            <View><Text>No songs to display</Text></View>
+                        )}
+                        ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+                        horizontal={false}
+                    /></View>
+                </View>
+            )
         case "Playlists":
             break;
         case "Folders":
